@@ -32,7 +32,7 @@
     opacity: .35;
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='.12'/></svg>");
   }
-  .wrap { position: relative; z-index: 1; max-width: 980px; margin: 0 auto; padding: 1.4rem 1.3rem 4rem; }
+  .wrap { position: relative; z-index: 1; max-width: 1080px; margin: 0 auto; padding: 1.4rem 1.3rem 4rem; }
   header {
     display: flex; justify-content: space-between; align-items: center; gap: 1rem;
     padding-bottom: .9rem; border-bottom: 1px solid var(--rule);
@@ -73,6 +73,37 @@
     color: var(--accent); margin-bottom: .35rem;
   }
   .banner p { margin: 0; font-family: Newsreader, Georgia, serif; font-size: 1.25rem; line-height: 1.35; }
+
+  .snaps {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.6rem 1.4rem;
+    margin: 1.2rem 0 0;
+  }
+  @media (max-width: 720px) { .snaps { grid-template-columns: 1fr; } }
+  figure.snap {
+    margin: 0;
+    background: #fffdf8;
+    padding: .5rem .5rem 0;
+    border: 1px solid #e6dccb;
+    box-shadow: 0 22px 50px rgba(36,25,20,.13);
+    transform: rotate(-.8deg);
+    min-height: 0;
+  }
+  figure.snap:nth-child(2) { transform: rotate(1deg); margin-top: 1.4rem; }
+  figure.snap:nth-child(3) { transform: rotate(.7deg); }
+  figure.snap:nth-child(4) { transform: rotate(-1.1deg); margin-top: 1.4rem; }
+  figure.snap img {
+    width: 100%; height: 320px; object-fit: cover; object-position: top center;
+    display: block; background: #ddd;
+  }
+  figure.snap figcaption { padding: .75rem .4rem .9rem; }
+  figure.snap .k { font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); }
+  figure.snap h3 { font-family: Newsreader, Georgia, serif; font-size: 1.12rem; margin: .15rem 0 .25rem; }
+  figure.snap .ex {
+    margin: 0; color: var(--muted); font-size: .88rem;
+  }
+  figure.snap .ex b { color: var(--ink); font-weight: 600; background: #f3eadf; padding: 0 .2rem; }
 
   h2 { font-family: Newsreader, Georgia, serif; font-size: 1.45rem; margin: 2.6rem 0 .8rem; }
   .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: .8rem; }
@@ -116,6 +147,10 @@
     <p id="t_open"></p>
   </div>
 
+  <h2 id="t_ex_h"></h2>
+  <p class="lede" id="t_ex_lede" style="margin-bottom:1rem"></p>
+  <div class="snaps" id="snaps"></div>
+
   <h2 id="t_src_h"></h2>
   <div class="grid" id="src_grid"></div>
 
@@ -144,6 +179,14 @@ const T = {
     cta_note: "Вход по паролю. Оригиналы сканов открываются только из карточки поиска.",
     open_k: "Откуда данные",
     open: "Все имена взяты из открытых опубликованных источников: адресных и телефонных книг, печатных справочников, именных списков. Закрытые базы вроде Yad Vashem и JewishGen мы не качаем.",
+    ex_h: "Как это выглядит",
+    ex_lede: "Страницы из тех же книг, что попали в индекс. Под каждым кадром — живой пример имени.",
+    snaps: [
+      { img: "snaps/spb.jpg", k: "адресная книга · 1917", t: "Санкт-Петербург", ex: "В колонке «Блонш…»: <b>Блонштейнъ Рув. Як.</b>" },
+      { img: "snaps/msk.jpg", k: "адресная книга · 1917", t: "Москва", ex: "Среди «Берен…»: <b>Берендтъ Адель</b>, воспитательница." },
+      { img: "snaps/len.jpg", k: "справочник жителей · 1934", t: "Ленинград", ex: "На странице «Блюм…»: <b>Блюмберг Аб. Хайм.</b>" },
+      { img: "snaps/poz-names.jpg", k: "список врачей · 1939", t: "Познань", ex: "Строка в таблице: <b>Dr Kużdowicz Marian</b>, Al. Szelągowska 19." }
+    ],
     src_h: "Кто здесь встречается",
     src: [
       ["Жители городов", "Петербург, Москва, Breslau, Бытом и другие — так, как людей записали в изданных адресных и телефонных книгах. Там целый город, не «только евреи»."],
@@ -166,6 +209,14 @@ const T = {
     cta_note: "Password required. Original scans open only from a search card.",
     open_k: "Where the data comes from",
     open: "Every name is taken from open, published sources: address and telephone books, printed directories, named lists. We do not harvest Yad Vashem or JewishGen.",
+    ex_h: "What the sources look like",
+    ex_lede: "Pages from the same books that went into the index. Each frame has a real name from that page.",
+    snaps: [
+      { img: "snaps/spb.jpg", k: "address book · 1917", t: "St. Petersburg", ex: "In the “Blonsh…” column: <b>Blonshtein Ruv. Yak.</b>" },
+      { img: "snaps/msk.jpg", k: "address book · 1917", t: "Moscow", ex: "Among “Beren…”: <b>Berendt Adel</b>, educator." },
+      { img: "snaps/len.jpg", k: "residents directory · 1934", t: "Leningrad", ex: "On the “Blyum…” page: <b>Blumberg Ab. Khaim.</b>" },
+      { img: "snaps/poz-names.jpg", k: "physicians list · 1939", t: "Poznań", ex: "A row in the table: <b>Dr Kużdowicz Marian</b>, Al. Szelągowska 19." }
+    ],
     src_h: "Who appears here",
     src: [
       ["City residents", "Petersburg, Moscow, Breslau, Beuthen and others — as printed in published address and telephone books. A whole city, not “Jews only”."],
@@ -188,6 +239,14 @@ const T = {
     cta_note: "כניסה בסיסמה. הסריקות נפתחות רק מתוך כרטיס החיפוש.",
     open_k: "מאיפה הנתונים",
     open: "כל השמות נלקחו ממקורות גלויים שפורסמו: ספרי כתובות וטלפון, מדריכים מודפסים, רשימות שמות. אין שאיבה מ־Yad Vashem או מ־JewishGen.",
+    ex_h: "איך זה נראה",
+    ex_lede: "עמודים מתוך אותם ספרים שנכנסו לאינדקס. מתחת לכל תמונה — שם אמיתי מאותו עמוד.",
+    snaps: [
+      { img: "snaps/spb.jpg", k: "ספר כתובות · 1917", t: "סנקט פטרבורג", ex: "בעמודת «Блонш…»: <b>Блонштейнъ Рув. Як.</b>" },
+      { img: "snaps/msk.jpg", k: "ספר כתובות · 1917", t: "מוסקבה", ex: "בין «Берен…»: <b>Берендтъ Адель</b>." },
+      { img: "snaps/len.jpg", k: "מדריך תושבים · 1934", t: "לנינגרד", ex: "בעמוד «Блюм…»: <b>Блюмберг Аб. Хайм.</b>" },
+      { img: "snaps/poz-names.jpg", k: "רשימת רופאים · 1939", t: "פוזנן", ex: "שורה בטבלה: <b>Dr Kużdowicz Marian</b>." }
+    ],
     src_h: "מי מופיע כאן",
     src: [
       ["תושבי ערים", "פטרבורג, מוסקבה, ברסלאו, ביטום ואחרות — כפי שנדפסו בספרי כתובות וטלפון. עיר שלמה, לא «רק יהודים»."],
@@ -215,6 +274,13 @@ function apply(lang) {
   document.getElementById("t_cta_note").textContent = t.cta_note;
   document.getElementById("t_open_k").textContent = t.open_k;
   document.getElementById("t_open").textContent = t.open;
+  document.getElementById("t_ex_h").textContent = t.ex_h;
+  document.getElementById("t_ex_lede").textContent = t.ex_lede;
+  document.getElementById("snaps").innerHTML = t.snaps.map(s =>
+    "<figure class='snap'><img src='"+s.img+"' alt='"+s.t+"'>"
+    +"<figcaption><div class='k'>"+s.k+"</div><h3>"+s.t+"</h3>"
+    +"<p class='ex'>"+s.ex+"</p></figcaption></figure>"
+  ).join("");
   document.getElementById("t_src_h").textContent = t.src_h;
   document.getElementById("src_grid").innerHTML = t.src.map(([h,p]) =>
     "<article><h3>"+h+"</h3><p>"+p+"</p></article>"
