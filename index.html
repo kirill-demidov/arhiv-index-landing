@@ -237,7 +237,7 @@ document.querySelectorAll(".langs button").forEach(b => {
 (function init() {
   const saved = localStorage.getItem("arhiv_landing_lang");
   const nav = (navigator.language || "").toLowerCase();
-  const lang = saved || (nav.startsWith("he") ? "he" : nav.startsWith("en") ? "en" : "ru");
+  const lang = saved || "ru";
   apply(lang);
 })();
 </script>
