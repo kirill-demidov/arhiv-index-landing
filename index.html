@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Индекс архива реституции</title>
+<meta name="description" content="Закрытый поисковый индекс. Все имена — из открытых опубликованных источников. Без Yad Vashem и JewishGen.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Newsreader:opsz,wght@6..72,400;6..72,600;6..72,700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #f3eee4;
+    --ink: #241914;
+    --muted: #6a5a50;
+    --rule: #d4c6b4;
+    --accent: #6b3a2a;
+    --gold: #b0894a;
+    --card: rgba(255,252,246,.72);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    font: 18px/1.5 "IBM Plex Sans", system-ui, sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    min-height: 100vh;
+  }
+  body::before {
+    content: "";
+    position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    opacity: .35;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='.12'/></svg>");
+  }
+  .wrap { position: relative; z-index: 1; max-width: 980px; margin: 0 auto; padding: 1.4rem 1.3rem 4rem; }
+  header {
+    display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+    padding-bottom: .9rem; border-bottom: 1px solid var(--rule);
+  }
+  .mark { font-family: Newsreader, Georgia, serif; font-weight: 700; letter-spacing: .02em; }
+  .mark small { display: block; font-weight: 400; font-size: .72rem; color: var(--muted); letter-spacing: .14em; text-transform: uppercase; margin-top: .15rem; }
+  .langs { display: flex; gap: .25rem; }
+  .langs button {
+    font: inherit; font-size: .8rem; background: transparent; border: 1px solid var(--rule);
+    color: var(--muted); padding: .28rem .55rem; cursor: pointer; border-radius: 3px;
+  }
+  .langs button.on { color: var(--ink); border-color: var(--ink); background: #fff; }
+  h1 {
+    font-family: Newsreader, Georgia, serif;
+    font-size: clamp(2.1rem, 6vw, 3.6rem);
+    line-height: 1.12; font-weight: 700; margin: 2.2rem 0 .8rem; max-width: 16ch;
+  }
+  .lede { font-size: 1.15rem; color: var(--muted); max-width: 42ch; margin: 0 0 1.6rem; }
+  .cta {
+    display: inline-block; background: var(--accent); color: #f3eadf; text-decoration: none;
+    padding: .7rem 1.15rem; border-radius: 3px; font-weight: 500;
+  }
+  .cta:hover { filter: brightness(1.08); }
+  .note { display: block; margin-top: .55rem; font-size: .82rem; color: var(--muted); }
+
+  .banner {
+    margin: 2.4rem 0 0;
+    padding: 1.15rem 1.2rem 1.2rem;
+    border: 1px solid var(--gold);
+    background: linear-gradient(180deg, #fffaf0, #f7f0e2);
+    position: relative;
+  }
+  .banner::before {
+    content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--gold);
+  }
+  .banner strong {
+    display: block; font-size: .72rem; letter-spacing: .16em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: .35rem;
+  }
+  .banner p { margin: 0; font-family: Newsreader, Georgia, serif; font-size: 1.25rem; line-height: 1.35; }
+
+  h2 { font-family: Newsreader, Georgia, serif; font-size: 1.45rem; margin: 2.6rem 0 .8rem; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: .8rem; }
+  article {
+    background: var(--card); border: 1px solid var(--rule); padding: 1rem 1.05rem;
+    min-height: 8.5rem;
+  }
+  article h3 { margin: 0 0 .35rem; font-size: .95rem; }
+  article p { margin: 0; color: var(--muted); font-size: .92rem; }
+
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem; }
+  @media (max-width: 720px) { .cols { grid-template-columns: 1fr; } }
+  ul { margin: .3rem 0 0; padding-inline-start: 1.1rem; color: var(--muted); }
+  li { margin: .25rem 0; }
+  .no { color: var(--accent); }
+  footer {
+    margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--rule);
+    font-size: .82rem; color: var(--muted);
+  }
+  [dir="rtl"] h1 { max-width: none; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="mark">Index Archive<small id="mark_sub"></small></div>
+    <div class="langs" role="group">
+      <button type="button" data-lang="ru">RU</button>
+      <button type="button" data-lang="en">EN</button>
+      <button type="button" data-lang="he">עב</button>
+    </div>
+  </header>
+
+  <h1 id="t_h1"></h1>
+  <p class="lede" id="t_lede"></p>
+  <a class="cta" id="t_cta" href="https://www.demidov.co.il/arhiv/"></a>
+  <span class="note" id="t_cta_note"></span>
+
+  <div class="banner">
+    <strong id="t_open_k"></strong>
+    <p id="t_open"></p>
+  </div>
+
+  <h2 id="t_src_h"></h2>
+  <div class="grid" id="src_grid"></div>
+
+  <div class="cols">
+    <div>
+      <h2 id="t_yes_h"></h2>
+      <ul id="t_yes"></ul>
+    </div>
+    <div>
+      <h2 class="no" id="t_no_h"></h2>
+      <ul id="t_no"></ul>
+    </div>
+  </div>
+
+  <footer id="t_foot"></footer>
+</div>
+<script>
+const T = {
+  ru: {
+    htmlLang: "ru", dir: "ltr",
+    title: "Индекс архива реституции",
+    mark: "закрытый рабочий индекс",
+    h1: "Имена из открытых источников — в одном поиске",
+    lede: "Индекс для работы с архивом реституции: человек, место, организация и документ. Не публичный генеалогический сайт.",
+    cta: "Открыть индекс",
+    cta_note: "Вход по паролю. Оригиналы сканов открываются только из карточки поиска.",
+    open_k: "Откуда данные",
+    open: "Все имена в индексе извлечены из открытых опубликованных источников: печатных справочников, адресных и телефонных книг, списков налогоплательщиков, олим, выживших и других изданных перечней. Мы не собираем данные с закрытых генеалогических баз.",
+    src_h: "Какие источники",
+    src: [
+      ["Адресные и телефонные книги", "Петербург, Москва, Breslau, Бытом и другие изданные справочники."],
+      ["Именные списки", "Налогоплательщики, олим, выжившие, полиция гетто — то, что выходило в печать или циркулировало как документ."],
+      ["Каталог дел", "Заголовки, темы и тэги собственной картотеки архива. Сканы — рядом, в том же индексе."]
+    ],
+    yes_h: "Что умеет поиск",
+    yes: ["Одно поле: имя, место или организация", "Транскрипции иврит / латиница / русский", "Фильтры по теме и источнику после выдачи", "Просмотр скана страницы из карточки"],
+    no_h: "Чего здесь нет",
+    no: ["Нет выгрузки из Yad Vashem", "Нет выгрузки из JewishGen", "Нет открытого доступа для всех", "Это не семейное древо и не «поиск родственников» как сервис"],
+    foot: "Индексация продолжается. Материалы — опубликованные списки и справочники плюс собственный каталог архива реституции."
+  },
+  en: {
+    htmlLang: "en", dir: "ltr",
+    title: "Restitution archive index",
+    mark: "a closed working index",
+    h1: "Names from open, published sources — in one search",
+    lede: "A working index for a restitution archive: person, place, organisation, document. Not a public genealogy site.",
+    cta: "Open the index",
+    cta_note: "Password required. Original scans open only from a search card.",
+    open_k: "Where the data comes from",
+    open: "Every name in the index is taken from open, published sources: printed directories, address and telephone books, taxpayer lists, immigrant lists, survivor lists and other issued registers. We do not harvest closed genealogy databases.",
+    src_h: "Sources",
+    src: [
+      ["Address and telephone books", "Petersburg, Moscow, Breslau, Beuthen and other published directories."],
+      ["Named lists", "Taxpayers, olim, survivors, ghetto police — material that was printed or circulated as a document."],
+      ["File catalogue", "Titles, themes and tags from the archive’s own card index. Scans sit next to them in the same index."]
+    ],
+    yes_h: "What search does",
+    yes: ["One box: name, place or organisation", "Hebrew / Latin / Russian transcriptions", "Theme and source filters after results", "Page scan from the hit card"],
+    no_h: "What this is not",
+    no: ["No scrape of Yad Vashem", "No scrape of JewishGen", "No open public access", "Not a family-tree or relative-finder product"],
+    foot: "Indexing is ongoing. Materials are published lists and directories, plus the restitution archive’s own catalogue."
+  },
+  he: {
+    htmlLang: "he", dir: "rtl",
+    title: "אינדקס ארכיון השבה",
+    mark: "אינדקס עבודה סגור",
+    h1: "שמות ממקורות גלויים ומודפסים — בחיפוש אחד",
+    lede: "אינדקס עבודה לארכיון השבת רכוש: אדם, מקום, ארגון ומסמך. לא אתר יוחסין ציבורי.",
+    cta: "לאינדקס",
+    cta_note: "כניסה בסיסמה. הסריקות נפתחות רק מתוך כרטיס החיפוש.",
+    open_k: "מאיפה הנתונים",
+    open: "כל השמות באינדקס חולצו ממקורות גלויים שפורסמו: ספרי כתובות וטלפון, רשימות משלמים, עולים, ניצולים ומרשמים מודפסים אחרים. אין שאיבה ממאגרי יוחסין סגורים.",
+    src_h: "מקורות",
+    src: [
+      ["ספרי כתובות וטלפון", "פטרבורג, מוסקבה, ברסלאו, ביטום ומדריכים מודפסים נוספים."],
+      ["רשימות שמות", "משלמי מס, עולים, ניצולים, משטרת גטו — חומר שנדפס או הופץ כמסמך."],
+      ["קטלוג התיקים", "כותרות, נושאים ותגיות מכרטסת הארכיון. הסריקות לידן, באותו אינדקס."]
+    ],
+    yes_h: "מה החיפוש עושה",
+    yes: ["שדה אחד: שם, מקום או ארגון", "תעתיקים עברית / לטינית / רוסית", "סינון לפי נושא ומקור אחרי התוצאות", "סריקת עמוד מכרטיס הפגיעה"],
+    no_h: "מה אין כאן",
+    no: ["אין שאיבה מ־Yad Vashem", "אין שאיבה מ־JewishGen", "אין גישה פתוחה לציבור", "זה לא אילן יוחסין ולא שירות «איתור קרובים»"],
+    foot: "האינדוקס נמשך. החומר — רשימות ומדריכים שפורסמו, וקטלוג הארכיון עצמו."
+  }
+};
+
+function apply(lang) {
+  const t = T[lang] || T.ru;
+  document.documentElement.lang = t.htmlLang;
+  document.documentElement.dir = t.dir;
+  document.title = t.title;
+  document.getElementById("mark_sub").textContent = t.mark;
+  document.getElementById("t_h1").textContent = t.h1;
+  document.getElementById("t_lede").textContent = t.lede;
+  const cta = document.getElementById("t_cta");
+  cta.textContent = t.cta;
+  document.getElementById("t_cta_note").textContent = t.cta_note;
+  document.getElementById("t_open_k").textContent = t.open_k;
+  document.getElementById("t_open").textContent = t.open;
+  document.getElementById("t_src_h").textContent = t.src_h;
+  document.getElementById("src_grid").innerHTML = t.src.map(([h,p]) =>
+    "<article><h3>"+h+"</h3><p>"+p+"</p></article>"
+  ).join("");
+  document.getElementById("t_yes_h").textContent = t.yes_h;
+  document.getElementById("t_yes").innerHTML = t.yes.map(x => "<li>"+x+"</li>").join("");
+  document.getElementById("t_no_h").textContent = t.no_h;
+  document.getElementById("t_no").innerHTML = t.no.map(x => "<li>"+x+"</li>").join("");
+  document.getElementById("t_foot").textContent = t.foot;
+  document.querySelectorAll(".langs button").forEach(b => {
+    b.classList.toggle("on", b.dataset.lang === lang);
+  });
+  localStorage.setItem("arhiv_landing_lang", lang);
+}
+
+document.querySelectorAll(".langs button").forEach(b => {
+  b.onclick = () => apply(b.dataset.lang);
+});
+
+(function init() {
+  const saved = localStorage.getItem("arhiv_landing_lang");
+  const nav = (navigator.language || "").toLowerCase();
+  const lang = saved || (nav.startsWith("he") ? "he" : nav.startsWith("en") ? "en" : "ru");
+  apply(lang);
+})();
+</script>
+</body>
+</html>
